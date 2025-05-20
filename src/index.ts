@@ -8,9 +8,9 @@ export interface MarkdownItMermaidOptions extends MermaidConfig {
 
 const markdownItMermaid = ({ delay = 30, ...mermaidOptions }: Partial<MarkdownItMermaidOptions> = {}) => {
   mermaid.initialize({ ...mermaidOptions })
-  const mermaidRun = debounce({ delay }, () => {
+  const mermaidRun = debounce(() => {
     mermaid.run();
-  });
+  }, delay);
   return (md: MarkdownIt) => {
     const sourceRender = md.renderer.rules.fence;
     md.renderer.rules.fence = (tokens, idx, options, env, self) => {
